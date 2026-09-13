@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <!--
-  PROJECT DETAIL PAGE — TEMPLATE
-  ================================
-  How to use:
-  1. Duplicate this file once per project: project-1.html, project-2.html, etc.
-  2. In each copy, replace the bracketed placeholders: [NAME], [PROJECT NAME], [TAG],
-     [ONE-LINER], spec values, section text, and image placeholders.
-  3. In index.html, point each project's "Build log" link to the matching file,
-     e.g. href="project-1.html"
-  4. Add a "Download" link for schematic PDF / Gerbers / BOM in the Downloads section,
-     or delete that section if you're not sharing files publicly.
+  Class-AB Audio Amplifier — project detail page
+  Remaining [bracketed] items are specifics only David has (exact board
+  dimensions/layer count, GitHub/LinkedIn URLs, prev/next project links) —
+  fill those in, everything else reflects what's actually known about this build.
 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[PROJECT NAME] — [NAME]</title>
+<title>Class-AB Audio Amplifier — David Joseph</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -115,16 +109,6 @@
   .gallery-2up{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
   @media (max-width: 700px){ .gallery-2up{ grid-template-columns: 1fr; } }
 
-  /* downloads */
-  .download-list{ list-style: none; padding: 0; margin: 0; max-width: var(--maxw-text); }
-  .download-list li{
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 0; border-top: 1px solid var(--line);
-  }
-  .download-list li:last-child{ border-bottom: 1px solid var(--line); }
-  .download-name{ font-weight: 500; }
-  .download-meta{ font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--grey); }
-
   /* nav between projects */
   .project-nav{
     display: flex; justify-content: space-between; padding: 40px 0 64px;
@@ -146,7 +130,7 @@
 
 <header>
   <div class="header-inner">
-    <a class="brand" href="index.html">[NAME]</a>
+    <a class="brand" href="index.html">David Joseph</a>
     <a class="back-link" href="index.html#work">← All projects</a>
   </div>
 </header>
@@ -154,102 +138,59 @@
 <main class="wrap">
 
   <section class="project-hero">
-    <div class="project-tag mono">[TAG — e.g. POWER ELECTRONICS]</div>
-    <h1>[Project name]</h1>
-    <p class="oneliner">[One-sentence summary — what it is and what it does.]</p>
+    <div class="project-tag mono">ANALOG / AUDIO</div>
+    <h1>Class-AB Audio Amplifier</h1>
+    <p class="oneliner">A class-AB audio amplifier taken from a reference schematic through OrCAD capture, Allegro layout, and fabrication.</p>
 
     <div class="spec-bar">
-      <div class="spec-cell"><span class="label mono">LAYERS</span><span class="value">4</span></div>
-      <div class="spec-cell"><span class="label mono">DIMENSIONS</span><span class="value">50mm × 30mm</span></div>
-      <div class="spec-cell"><span class="label mono">TOOL</span><span class="value">KiCad 8</span></div>
-      <div class="spec-cell"><span class="label mono">TIMELINE</span><span class="value">6 weeks, 3 revisions</span></div>
+      <div class="spec-cell"><span class="label mono">TOOL</span><span class="value">OrCAD Capture + Cadence Allegro</span></div>
+      <div class="spec-cell"><span class="label mono">STATUS</span><span class="value">Manufactured, not assembled</span></div>
+      <div class="spec-cell"><span class="label mono">LAYERS</span><span class="value">[fill in]</span></div>
+      <div class="spec-cell"><span class="label mono">DIMENSIONS</span><span class="value">[fill in]</span></div>
     </div>
   </section>
 
   <figure class="hero-media">
     <div class="fiducial tl"></div>
     <div class="fiducial br"></div>
-    <div class="img-placeholder">hero shot — assembled board or top-copper render<br>1920×1080 recommended</div>
-    <!-- replace with: <img src="images/project1-hero.jpg" alt="[Project name] assembled board"> -->
-    <figcaption>[Caption — e.g. "Rev C, assembled and under test."]</figcaption>
+    <div class="img-placeholder">front photo of the manufactured board (cleaned up/re-cropped)<br>1920×1080 recommended</div>
+    <!-- replace with: <img src="images/audio-amp-front.jpg" alt="Manufactured class-AB amplifier board, front"> -->
+    <figcaption>[Caption — e.g. "Manufactured board, front side."]</figcaption>
   </figure>
 
   <section class="content-section" style="border-top: none; padding-top: 0;">
     <h2>Overview</h2>
-    <p>[What the board does, who/what it was for, and why it exists. 2-4 sentences of context — this is the "what" before you get into the "how."]</p>
+    <p>This board recreates a single-supply, AC-coupled class-AB linear audio power amplifier from a reference schematic, taken from a blank OrCAD project through to a manufactured board. I set up the OrCAD directory structure and layer views from scratch, built the schematic in OrCAD Capture — including a custom three-pin jumper symbol — and laid it out in Cadence Allegro with a matching custom jumper footprint. After clearing all DRC errors, I generated manufacturable Gerber files and sent the design to Advanced PCB for fabrication. This is where padstacks, vias, footprints, ground planes, and the rest of the PCB design flow actually clicked.</p>
   </section>
 
   <section class="content-section">
-    <h2>The problem</h2>
-    <p>[What was the hard constraint you were designing against — size, power budget, thermal, EMI, cost, an existing enclosure, a deadline? Be specific with numbers where you can: "had to fit a 4-layer board into a 40×25mm footprint while dissipating 3W" is much stronger than "space was tight."]</p>
-  </section>
-
-  <section class="content-section">
-    <h2>Design process</h2>
-    <p>[Walk through your approach: component selection reasoning, key tradeoffs, how you handled the hardest part of the layout. This is the section that shows judgment, not just execution — talk about what you considered and rejected, not only what you did.]</p>
+    <h2>Layout decisions</h2>
+    <p>Decoupling capacitors were placed as close to each IC as possible to keep the bypass loop tight, and power traces were routed wider than the signal traces to handle the higher current with less resistive drop and heating.</p>
     <div class="gallery-2up">
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">schematic detail</div>
-        <figcaption>[Caption]</figcaption>
+        <div class="img-placeholder" style="aspect-ratio: 4/3;">back photo of the manufactured board (cleaned up/re-cropped)</div>
+        <figcaption>[Caption — e.g. "Back side, through-hole components."]</figcaption>
       </figure>
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">layout detail — routing/placement</div>
-        <figcaption>[Caption]</figcaption>
+        <div class="img-placeholder" style="aspect-ratio: 4/3;">Allegro top-layer screenshot (cropped, with labels/callouts added)</div>
+        <figcaption>[Caption — e.g. "Top-layer routing, ground plane and signal paths called out."]</figcaption>
       </figure>
     </div>
   </section>
 
   <section class="content-section">
-    <h2>Challenges & what I'd change</h2>
-    <ul>
-      <li>[A specific problem you hit — e.g. a thermal issue found during bring-up — and how you diagnosed and fixed it.]</li>
-      <li>[Another challenge or a design decision you'd revisit given what you know now.]</li>
-    </ul>
+    <h2>Manufacturability & DRC</h2>
+    <p>The layout was checked against Advanced PCB's fabrication constraints before sending it out — for a standard two-layer, 1 oz copper board, their published rules call for roughly 5–5.5 mil trace width and spacing, a minimum drilled via size around 6 mil, and about 10 mil of copper clearance to the board edge. [Confirm these match what you actually set in Allegro's constraint manager, or swap in your real numbers if different.] All DRC errors were cleared before generating Gerbers.</p>
   </section>
 
   <section class="content-section">
-    <h2>Testing & results</h2>
-    <p>[What you measured on the bench, how it performed against spec, and any surprises. Numbers here carry a lot of weight — efficiency, thermal rise, noise floor, whatever's relevant to this board.]</p>
-    <div class="gallery-2up">
-      <figure>
-        <div class="fiducial tl"></div>
-        <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">bench setup / oscilloscope capture</div>
-        <figcaption>[Caption]</figcaption>
-      </figure>
-      <figure>
-        <div class="fiducial tl"></div>
-        <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">final board in enclosure / in use</div>
-        <figcaption>[Caption]</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <h2>Downloads</h2>
-    <ul class="download-list">
-      <li>
-        <span class="download-name">Schematic (PDF)</span>
-        <a href="#" class="mono download-meta">DOWNLOAD ↓</a>
-      </li>
-      <li>
-        <span class="download-name">Gerbers + drill files (.zip)</span>
-        <a href="#" class="mono download-meta">DOWNLOAD ↓</a>
-      </li>
-      <li>
-        <span class="download-name">Bill of materials (.csv)</span>
-        <a href="#" class="mono download-meta">DOWNLOAD ↓</a>
-      </li>
-      <li>
-        <span class="download-name">Full design repo</span>
-        <a href="#" class="mono download-meta">VIEW ON GITHUB ↗</a>
-      </li>
-    </ul>
+    <h2>Current status</h2>
+    <p>This was the first PCB I had complete freedom to design, and I'll be honest — the layout wasn't my best work, which is part of why I didn't think it was worth assembling. A lot of it only clicked once I could hold the finished board: vias, trace routing, ground planes, and part placement all made far more sense in hindsight than they did while I was laying it out. It was designed, laid out, and manufactured, but never assembled or tested, and the original OrCAD and Allegro project files were lost — only the photos and screenshot above remain.</p>
+    <p><strong>Next:</strong> the real payoff here is what it taught me about the full flow — schematic, DRC setup, layout, manufacturing, assembly. Placement decisions make more sense now too: keeping connectors on the perimeter, using board space more efficiently, giving vias enough spacing, and choosing trace widths deliberately instead of by default. Those lessons are already shaping how I approach the other boards on this site.</p>
   </section>
 
   <nav class="project-nav">
@@ -260,11 +201,11 @@
 </main>
 
 <footer class="wrap">
-  <div class="copy">© <span id="year"></span> [NAME]</div>
+  <div class="copy">© <span id="year"></span> David Joseph</div>
   <div class="foot-links">
     <a href="[GITHUB]">GitHub</a>
     <a href="[LINKEDIN]">LinkedIn</a>
-    <a href="mailto:[EMAIL]">Email</a>
+    <a href="mailto:todavid2004@gmail.com">Email</a>
   </div>
 </footer>
 
