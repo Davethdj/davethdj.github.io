@@ -83,6 +83,17 @@
   nav{ display: flex; gap: 28px; font-size: 14px; }
   nav a{ color: var(--ink); }
 
+  #contact.flash .btn{
+    animation: contact-pulse 1.2s ease-out 2;
+  }
+  @keyframes contact-pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(181,103,43,0.55); }
+    100%{ box-shadow: 0 0 0 14px rgba(181,103,43,0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    #contact.flash .btn{ animation: none; }
+  }
+
   /* hero */
   .hero{
     padding: 96px 0 72px;
@@ -129,6 +140,16 @@
   }
   .section-head h2{
     font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0;
+  }
+  #skills.flash h2{
+    animation: skills-pulse 1s ease-out;
+  }
+  @keyframes skills-pulse{
+    0%{ color: var(--copper); }
+    100%{ color: var(--ink); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    #skills.flash h2{ animation: none; }
   }
   .section-count{ font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--grey); }
 
@@ -243,7 +264,8 @@
     <p> Hardware-driven electrical engineer specializing in High-Speed Digital Design and RF PCB layout, dedicated to taming severe signal degradation, impedance discontinuities, and power delivery constraints right at the physical limits of the board.</p>
     <div class="hero-links">
       <a class="btn" href="#work">View projects</a>
-      <a class="textlink" href="mailto:[EMAIL]">[EMAIL]</a>
+      <a class="textlink" href="downloads/David-Joseph-Resume.pdf" download>Resume ↓</a>
+      <a class="textlink" href="mailto:todavid2004@gmail.com">Email</a>
     </div>
   </section>
 
@@ -259,7 +281,7 @@
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
         <div class="img-placeholder">board render — top copper<br>1600×1000 recommended</div>
-        <!-- replace with: <img src="images/project1-top.jpg" alt="Top copper render of [project name]"> -->
+        <!-- replace with: <img src="images/high-speed-transmission-line.jpg" alt="High Speed Transmission Line Test Board"> -->
       </div>
       <div class="project-body">
         <div class="project-tag mono">High Speed Digital Design | ECE 173</div>
@@ -267,9 +289,9 @@
         <p class="project-desc">This board made abstract signal-integrity theory tangible: SMA connectors let us drive and probe a 20 Mbps signal path directly, isolating and measuring channel loss, crosstalk, and ground bounce with a scope instead of just calculating them on paper.</p>
         <div class="spec-list">
           <div class="spec"><span class="spec-label mono">LAYERS</span><span class="spec-value">2</span></div>
-          <div class="spec"><span class="spec-label mono">DIMENSIONS</span><span class="spec-value">75 mm x 75 mm/span></div>
+          <div class="spec"><span class="spec-label mono">DIMENSIONS</span><span class="spec-value">75 mm x 75 mm </span></div>
           <div class="spec"><span class="spec-label mono">TOOL</span><span class="spec-value">Altium 365</span></div>
-          <div class="spec"><span class="spec-label mono">STATUS</span><span class="spec-value">Completed & Successful</span></div>
+          <div class="spec"><span class="spec-label mono">STATUS</span><span class="spec-value">Assembled and Tested</span></div>
         </div>
         <div class="project-links">
           <a href="project-1.html">Full Writeup ↗</a>
@@ -283,16 +305,17 @@
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
         <div class="img-placeholder">assembled board photo<br>1600×1000 recommended</div>
+        <!-- replace with: <img src="images/differential-pair.jpg" alt="Differential Pair Test Board"> -->
       </div>
       <div class="project-body">
-        <div class="project-tag mono">SENSING / EMBEDDED</div>
-        <h3>[Differential Pair Test Board]</h3>
+        <div class="project-tag mono">High Speed Digital Design</div>
+        <h3>Differential Pair Test Board</h3>
         <p class="project-desc">[Description — role, constraints, what you'd do differently.]</p>
         <div class="spec-list">
-          <div class="spec"><span class="spec-label mono">LAYERS</span><span class="spec-value">2</span></div>
-          <div class="spec"><span class="spec-label mono">DIMENSIONS</span><span class="spec-value">— × —</span></div>
+          <div class="spec"><span class="spec-label mono">LAYERS</span><span class="spec-value">6</span></div>
+          <div class="spec"><span class="spec-label mono">DIMENSIONS</span><span class="spec-value">75mm × 75mm</span></div>
           <div class="spec"><span class="spec-label mono">TOOL</span><span class="spec-value">Altium Designer</span></div>
-          <div class="spec"><span class="spec-label mono">STATUS</span><span class="spec-value">—</span></div>
+          <div class="spec"><span class="spec-label mono">STATUS</span><span class="spec-value">Design Complete</span></div>
         </div>
         <div class="project-links">
           <a href="project-2.html">Full Writeup ↗</a>
@@ -306,16 +329,17 @@
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
         <div class="img-placeholder">schematic detail — key section<br>1600×1000 recommended</div>
+        <!-- replace with: <img src="images/fpga-ddr3-routing.jpg" alt="FPGA-DDR3 Board Routing"> -->
       </div>
       <div class="project-body">
-        <div class="project-tag mono">RF / SIGNAL</div>
+        <div class="project-tag mono">FPGA Design</div>
         <h3>[FPGA-DDR3 Board Routing]</h3>
-        <p class="project-desc">[Description.]</p>
+        <p class="project-desc">Executed complex trace routing and strict impedance control for a 6-layer FPGA-DDR hardware design to optimize high-speed digital performance.</p>
         <div class="spec-list">
-          <div class="spec"><span class="spec-label mono">LAYERS</span><span class="spec-value">—</span></div>
-          <div class="spec"><span class="spec-label mono">DIMENSIONS</span><span class="spec-value">—</span></div>
-          <div class="spec"><span class="spec-label mono">TOOL</span><span class="spec-value">—</span></div>
-          <div class="spec"><span class="spec-label mono">STATUS</span><span class="spec-value">—</span></div>
+          <div class="spec"><span class="spec-label mono">LAYERS</span><span class="spec-value">6</span></div>
+          <div class="spec"><span class="spec-label mono">DIMENSIONS</span><span class="spec-value">75mmx50mm</span></div>
+          <div class="spec"><span class="spec-label mono">TOOL</span><span class="spec-value">EasyEDA</span></div>
+          <div class="spec"><span class="spec-label mono">STATUS</span><span class="spec-value">Design Complete</span></div>
         </div>
         <div class="project-links">
           <a href="project-3.html">View Project ↗</a>
@@ -329,16 +353,17 @@
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
         <div class="img-placeholder">board render — bottom copper<br>1600×1000 recommended</div>
+        <!-- replace with: <img src="images/audio-amplifier-layout.jpg" alt="Audio Amplifier Layout"> -->
       </div>
       <div class="project-body">
-        <div class="project-tag mono">MOTOR CONTROL</div>
-        <h3>[Audio Amplifier Layout]</h3>
+        <div class="project-tag mono">Intro to PCB Design | ECE 174</div>
+        <h3>Audio Amplifier Layout</h3>
         <p class="project-desc">[Description.]</p>
         <div class="spec-list">
-          <div class="spec"><span class="spec-label mono">LAYERS</span><span class="spec-value">—</span></div>
-          <div class="spec"><span class="spec-label mono">DIMENSIONS</span><span class="spec-value">—</span></div>
-          <div class="spec"><span class="spec-label mono">TOOL</span><span class="spec-value">—</span></div>
-          <div class="spec"><span class="spec-label mono">STATUS</span><span class="spec-value">—</span></div>
+          <div class="spec"><span class="spec-label mono">LAYERS</span><span class="spec-value">2</span></div>
+          <div class="spec"><span class="spec-label mono">DIMENSIONS</span><span class="spec-value">75mmx75mm</span></div>
+          <div class="spec"><span class="spec-label mono">TOOL</span><span class="spec-value">Cadence & Allegro</span></div>
+          <div class="spec"><span class="spec-label mono">STATUS</span><span class="spec-value">Manufactured</span></div>
         </div>
         <div class="project-links">
           <a href="project-4.html">View Project ↗</a>
@@ -354,8 +379,8 @@
         <div class="img-placeholder">in-use photo<br>1600×1000 recommended</div>
       </div>
       <div class="project-body">
-        <div class="project-tag mono">CUSTOM TOOLING</div>
-        <h3>[Project name]</h3>
+        <div class="project-tag mono">Coming Soon</div>
+        <h3>Coming Soon</h3>
         <p class="project-desc">[Description.]</p>
         <div class="spec-list">
           <div class="spec"><span class="spec-label mono">LAYERS</span><span class="spec-value">—</span></div>
@@ -390,7 +415,8 @@
           <li>KiCad</li>
           <li>Altium Designer</li>
           <li>LTspice</li>
-          <li>Fusion 360 (enclosures)</li>
+          <li>Cadence OrCAD</li>
+          <li>Allegro PCB Editor</li>
         </ul>
       </div>
       <div class="skill-group">
@@ -427,6 +453,17 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  function flashSection(id){
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('flash');
+    void el.offsetWidth;
+    el.classList.add('flash');
+  }
+  document.querySelectorAll('a[href="#skills"], a[href="#contact"]').forEach(link => {
+    link.addEventListener('click', () => flashSection(link.getAttribute('href').slice(1)));
+  });
 </script>
 
 </body>
