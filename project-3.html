@@ -1,16 +1,4 @@
 <!DOCTYPE html>
-<!--
-  PROJECT DETAIL PAGE — TEMPLATE
-  ================================
-  How to use:
-  1. Duplicate this file once per project: project-1.html, project-2.html, etc.
-  2. In each copy, replace the bracketed placeholders: [NAME], [PROJECT NAME], [TAG],
-     [ONE-LINER], spec values, section text, and image placeholders.
-  3. In index.html, point each project's "Build log" link to the matching file,
-     e.g. href="project-1.html"
-  4. Add a "Download" link for schematic PDF / Gerbers / BOM in the Downloads section,
-     or delete that section if you're not sharing files publicly.
--->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -116,16 +104,6 @@
   .gallery-2up{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
   @media (max-width: 700px){ .gallery-2up{ grid-template-columns: 1fr; } }
 
-  /* downloads */
-  .download-list{ list-style: none; padding: 0; margin: 0; max-width: var(--maxw-text); }
-  .download-list li{
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 0; border-top: 1px solid var(--line);
-  }
-  .download-list li:last-child{ border-bottom: 1px solid var(--line); }
-  .download-name{ font-weight: 500; }
-  .download-meta{ font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--grey); }
-
   /* nav between projects */
   .project-nav{
     display: flex; justify-content: space-between; padding: 40px 0 64px;
@@ -228,28 +206,6 @@
         <figcaption>To be added after DDR3 mounting and signal integrity testing.</figcaption>
       </figure>
     </div>
-  </section>
-
-  <section class="content-section">
-    <h2>Downloads</h2>
-    <ul class="download-list">
-      <li>
-        <span class="download-name">Schematic (PDF)</span>
-        <a href="#" class="mono download-meta">DOWNLOAD ↓</a>
-      </li>
-      <li>
-        <span class="download-name">Gerbers + drill files (.zip)</span>
-        <a href="#" class="mono download-meta">DOWNLOAD ↓</a>
-      </li>
-      <li>
-        <span class="download-name">Bill of materials (.csv)</span>
-        <a href="#" class="mono download-meta">DOWNLOAD ↓</a>
-      </li>
-      <li>
-        <span class="download-name">Full design repo</span>
-        <a href="#" class="mono download-meta">VIEW ON GITHUB ↗</a>
-      </li>
-    </ul>
   </section>
 
   <nav class="project-nav">
