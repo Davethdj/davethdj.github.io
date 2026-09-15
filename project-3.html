@@ -98,6 +98,7 @@
     box-shadow: 0 8px 24px rgba(216,67,42,0.08);
   }
   .hero-media img{ width: 100%; display: block; border: 1px solid var(--line-strong); border-radius: 10px; box-shadow: 0 8px 24px rgba(216,67,42,0.08); }
+  .gallery-img{ width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; border: 1px solid var(--line-strong); border-radius: 8px; box-shadow: 0 6px 18px rgba(216,67,42,0.07); }
   .fiducial{ position: absolute; width: 12px; height: 12px; pointer-events: none; border-radius: 50%; background: var(--copper); box-shadow: 0 0 0 3px var(--bg); }
   .fiducial.tl{ top: -6px; left: -6px; }
   .fiducial.br{ bottom: -6px; right: -6px; }
@@ -169,8 +170,7 @@
   <figure class="hero-media">
     <div class="fiducial tl"></div>
     <div class="fiducial br"></div>
-    <div class="img-placeholder">hero shot — bare board or partially-populated top-copper photo<br>1920×1080 recommended</div>
-    <!-- replace with: <img src="images/ddr-routing-hero.jpg" alt="FPGA DDR interface routing board, top copper"> -->
+    <img src="images/ddr-routing-hero.jpg" alt="FPGA DDR interface routing board, top copper">
     <figcaption>Partially populated board, prior to FPGA and DDR3 mounting.</figcaption>
   </figure>
 
@@ -191,13 +191,13 @@
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">stackup diagram / cross-section</div>
+        <img class="gallery-img" src="images/ddr-stackup-diagram.jpg" alt="6-layer stackup diagram and cross-section">
         <figcaption>6-layer stackup: GND planes bracket every high-speed signal layer.</figcaption>
       </figure>
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">layout detail — DDR length-matching / serpentine routing</div>
+        <img class="gallery-img" src="images/ddr-length-matching-routing.jpg" alt="Layout detail of DDR length-matching serpentine routing">
         <figcaption>Length-matched DDR data lanes near the FPGA memory interface.</figcaption>
       </figure>
     </div>
@@ -218,13 +218,13 @@
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">bring-up photo — voltage rail validation</div>
+        <img class="gallery-img" src="images/ddr-bringup-voltage-rail.jpg" alt="Bring-up photo validating step-down voltage rails">
         <figcaption>Validating step-down rails prior to mounting FPGA and DDR3 ICs.</figcaption>
       </figure>
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">eye diagram / TDR capture (pending)</div>
+        <img class="gallery-img" src="images/ddr-eye-diagram-tdr.jpg" alt="DDR eye diagram and TDR impedance capture">
         <figcaption>To be added after DDR3 mounting and signal integrity testing.</figcaption>
       </figure>
     </div>

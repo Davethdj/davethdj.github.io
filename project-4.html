@@ -92,6 +92,7 @@
     box-shadow: 0 8px 24px rgba(216,67,42,0.08);
   }
   .hero-media img{ width: 100%; display: block; border: 1px solid var(--line-strong); border-radius: 10px; box-shadow: 0 8px 24px rgba(216,67,42,0.08); }
+  .gallery-img{ width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; border: 1px solid var(--line-strong); border-radius: 8px; box-shadow: 0 6px 18px rgba(216,67,42,0.07); }
   .fiducial{ position: absolute; width: 12px; height: 12px; pointer-events: none; border-radius: 50%; background: var(--copper); box-shadow: 0 0 0 3px var(--bg); }
   .fiducial.tl{ top: -6px; left: -6px; }
   .fiducial.br{ bottom: -6px; right: -6px; }
@@ -153,8 +154,7 @@
   <figure class="hero-media">
     <div class="fiducial tl"></div>
     <div class="fiducial br"></div>
-    <div class="img-placeholder">front photo of the manufactured board (cleaned up/re-cropped)<br>1920×1080 recommended</div>
-    <!-- replace with: <img src="images/audio-amp-front.jpg" alt="Manufactured class-AB amplifier board, front"> -->
+    <img src="images/audio-amp-front.jpg" alt="Manufactured class-AB amplifier board, front">
     <figcaption>[Caption — e.g. "Manufactured board, front side."]</figcaption>
   </figure>
 
@@ -170,13 +170,13 @@
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">back photo of the manufactured board (cleaned up/re-cropped)</div>
+        <img class="gallery-img" src="images/audio-amp-back.jpg" alt="Manufactured class-AB amplifier board, back">
         <figcaption>[Caption — e.g. "Back side, through-hole components."]</figcaption>
       </figure>
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">Allegro top-layer screenshot (cropped, with labels/callouts added)</div>
+        <img class="gallery-img" src="images/audio-amp-allegro-layout.jpg" alt="Allegro top-layer routing screenshot with callouts">
         <figcaption>[Caption — e.g. "Top-layer routing, ground plane and signal paths called out."]</figcaption>
       </figure>
     </div>

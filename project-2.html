@@ -87,6 +87,7 @@
     box-shadow: 0 8px 24px rgba(216,67,42,0.08);
   }
   .hero-media img{ width: 100%; display: block; border: 1px solid var(--line-strong); border-radius: 10px; box-shadow: 0 8px 24px rgba(216,67,42,0.08); }
+  .gallery-img{ width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; border: 1px solid var(--line-strong); border-radius: 8px; box-shadow: 0 6px 18px rgba(216,67,42,0.07); }
   .fiducial{ position: absolute; width: 12px; height: 12px; pointer-events: none; border-radius: 50%; background: var(--copper); box-shadow: 0 0 0 3px var(--bg); }
   .fiducial.tl{ top: -6px; left: -6px; }
   .fiducial.br{ bottom: -6px; right: -6px; }
@@ -158,8 +159,7 @@
   <figure class="hero-media">
     <div class="fiducial tl"></div>
     <div class="fiducial br"></div>
-    <div class="img-placeholder">PCB layout render — top copper, 4-channel differential pair routing<br>1920×1080 recommended</div>
-    <!-- replace with: <img src="images/pcie-redriver-hero.jpg" alt="Active PCIe Gen 4 Signal Conditioner PCB layout render"> -->
+    <img src="images/pcie-redriver-hero.jpg" alt="Active PCIe Gen 4 Signal Conditioner PCB layout render">
     <figcaption>Completed 4-channel layout in Altium. Board was not fabricated — see Status below.</figcaption>
   </figure>
 
@@ -180,13 +180,13 @@
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">schematic detail — redriver and STM32 equalization control</div>
+        <img class="gallery-img" src="images/pcie-redriver-schematic-detail.jpg" alt="Redriver and STM32 equalization control schematic detail">
         <figcaption>Redriver and per-channel control schematic.</figcaption>
       </figure>
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">layout detail — via-crossing differential pair</div>
+        <img class="gallery-img" src="images/pcie-redriver-via-crossing.jpg" alt="Layout detail of via-crossing differential pair">
         <figcaption>Via-induced impedance discontinuity channel, routed and split around the via.</figcaption>
       </figure>
     </div>
