@@ -20,17 +20,17 @@
 <title>David Joseph — Hardware & PCB Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #FAFAF8;
-    --ink: #16191C;
-    --copper: #B5672B;
-    --copper-dim: #8f5121;
-    --green: #0B3D2E;
-    --grey: #5B6670;
-    --line: #DDE1E3;
-    --line-strong: #C3C9CC;
+    --bg: #FFF8F0;
+    --ink: #2E2016;
+    --copper: #D8432A;
+    --copper-dim: #B23520;
+    --green: #1F7A6D;
+    --grey: #8A7A6B;
+    --line: #F0E1CE;
+    --line-strong: #E3CBAE;
     --maxw: 1120px;
   }
   *{ box-sizing: border-box; }
@@ -46,14 +46,12 @@
   }
   .mono{ font-family: 'IBM Plex Mono', monospace; }
 
-  /* background grid — subtle PCB reference grid, very low contrast */
+  /* background dots — playful confetti-style backdrop, very low contrast */
   .grid-bg{
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 32px 32px;
+    background-image: radial-gradient(var(--line-strong) 2px, transparent 2px);
+    background-size: 28px 28px;
     background-position: -1px -1px;
-    opacity: 0.35;
+    opacity: 0.5;
     position: fixed;
     inset: 0;
     pointer-events: none;
@@ -70,7 +68,7 @@
   /* header */
   header{
     position: sticky; top: 0; z-index: 10;
-    background: rgba(250,250,248,0.92);
+    background: rgba(255,248,240,0.92);
     backdrop-filter: blur(6px);
     border-bottom: 1px solid var(--line);
   }
@@ -79,7 +77,7 @@
     padding: 18px 32px;
     max-width: var(--maxw); margin: 0 auto;
   }
-  .brand{ font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
+  .brand{ font-family: 'Fredoka', 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
   nav{ display: flex; gap: 28px; font-size: 14px; }
   nav a{ color: var(--ink); }
 
@@ -87,8 +85,8 @@
     animation: contact-pulse 1.2s ease-out 2;
   }
   @keyframes contact-pulse{
-    0%{ box-shadow: 0 0 0 0 rgba(181,103,43,0.55); }
-    100%{ box-shadow: 0 0 0 14px rgba(181,103,43,0); }
+    0%{ box-shadow: 0 0 0 0 rgba(216,67,42,0.55); }
+    100%{ box-shadow: 0 0 0 14px rgba(216,67,42,0); }
   }
   @media (prefers-reduced-motion: reduce){
     #contact.flash .btn{ animation: none; }
@@ -100,15 +98,20 @@
     position: relative; z-index: 1;
   }
   .hero-eyebrow{
+    display: inline-block;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 13px;
     color: var(--copper);
-    margin-bottom: 18px;
+    background: rgba(216,67,42,0.1);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
   }
   .hero h1{
+    font-family: 'Fredoka', 'IBM Plex Sans', sans-serif;
     font-size: clamp(36px, 5vw, 58px);
-    line-height: 1.08;
-    letter-spacing: -0.02em;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
     font-weight: 600;
     margin: 0 0 24px;
     max-width: 780px;
@@ -122,14 +125,16 @@
   .hero-links{ display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
   .btn{
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 11px 20px;
+    padding: 12px 24px;
     background: var(--ink); color: var(--bg);
-    border-radius: 2px;
-    font-size: 14px; font-weight: 500;
+    border-radius: 999px;
+    font-family: 'Fredoka', 'IBM Plex Sans', sans-serif;
+    font-size: 14px; font-weight: 600;
     border-bottom: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
   }
-  .btn:hover{ background: var(--copper); }
-  .textlink{ font-size: 14px; color: var(--ink); border-bottom: 1px solid var(--line-strong); }
+  .btn:hover{ background: var(--copper); transform: translateY(-3px) scale(1.03); box-shadow: 0 10px 22px rgba(216,67,42,0.32); }
+  .textlink{ font-size: 14px; color: var(--ink); border-bottom: 1px solid var(--line-strong); transition: color 0.15s ease; }
   .textlink:hover{ color: var(--copper); }
 
   /* section headings */
@@ -139,6 +144,7 @@
     margin-bottom: 48px; gap: 24px; flex-wrap: wrap;
   }
   .section-head h2{
+    font-family: 'Fredoka', 'IBM Plex Sans', sans-serif;
     font-size: 28px; font-weight: 600; letter-spacing: -0.01em; margin: 0;
   }
   #skills.flash h2{
@@ -170,20 +176,24 @@
   .img-placeholder{
     width: 100%; aspect-ratio: 8/5;
     background:
-      repeating-linear-gradient(45deg, #EFEEE9, #EFEEE9 10px, #F5F4F0 10px, #F5F4F0 20px);
+      repeating-linear-gradient(45deg, #FBEEDD, #FBEEDD 10px, #FFFCF6 10px, #FFFCF6 20px);
     border: 1px solid var(--line-strong);
+    border-radius: 18px;
     display: flex; align-items: center; justify-content: center;
     color: var(--grey); font-family: 'IBM Plex Mono', monospace; font-size: 13px;
     text-align: center; padding: 20px;
+    box-shadow: 0 8px 24px rgba(216,67,42,0.08);
   }
-  .project-media img{ width: 100%; display: block; border: 1px solid var(--line-strong); aspect-ratio: 8/5; object-fit: cover; }
-  /* fiducial corner marks — the one deliberate signature motif */
-  .fiducial{ position: absolute; width: 14px; height: 14px; pointer-events: none; }
-  .fiducial::before, .fiducial::after{ content: ""; position: absolute; background: var(--copper); }
-  .fiducial::before{ width: 14px; height: 1.5px; top: 6px; left: 0; }
-  .fiducial::after{ width: 1.5px; height: 14px; left: 6px; top: 0; }
-  .fiducial.tl{ top: -7px; left: -7px; }
-  .fiducial.br{ bottom: -7px; right: -7px; }
+  .project-media img{
+    width: 100%; display: block; border: 1px solid var(--line-strong); aspect-ratio: 8/5; object-fit: cover;
+    border-radius: 18px; box-shadow: 0 8px 24px rgba(216,67,42,0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .project-media img:hover{ transform: translateY(-4px) rotate(-0.4deg); box-shadow: 0 14px 30px rgba(216,67,42,0.18); }
+  /* corner dot — the one deliberate signature motif */
+  .fiducial{ position: absolute; width: 12px; height: 12px; pointer-events: none; border-radius: 50%; background: var(--copper); box-shadow: 0 0 0 3px var(--bg); }
+  .fiducial.tl{ top: -6px; left: -6px; }
+  .fiducial.br{ bottom: -6px; right: -6px; }
 
   .project-tag{
     font-family: 'IBM Plex Mono', monospace; font-size: 12px;
