@@ -1,21 +1,10 @@
 <!DOCTYPE html>
-<!--
-  PROJECT DETAIL PAGE — TEMPLATE
-  ================================
-  How to use:
-  1. Duplicate this file once per project: project-1.html, project-2.html, etc.
-  2. In each copy, replace the bracketed placeholders: [NAME], [PROJECT NAME], [TAG],
-     [ONE-LINER], spec values, section text, and image placeholders.
-  3. In index.html, point each project's "Build log" link to the matching file,
-     e.g. href="project-1.html"
-  4. Add a "Download" link for schematic PDF / Gerbers / BOM in the Downloads section,
-     or delete that section if you're not sharing files publicly.
--->
+<!-- Active PCIe Gen 4 Signal Conditioner (Redriver) — project detail page -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[PROJECT NAME] — [NAME]</title>
+<title>Active PCIe Gen 4 Signal Conditioner (Redriver) — David Joseph</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -146,7 +135,7 @@
 
 <header>
   <div class="header-inner">
-    <a class="brand" href="index.html">[NAME]</a>
+    <a class="brand" href="index.html">David Joseph</a>
     <a class="back-link" href="index.html#work">← All projects</a>
   </div>
 </header>
@@ -154,51 +143,51 @@
 <main class="wrap">
 
   <section class="project-hero">
-    <div class="project-tag mono">[TAG — e.g. POWER ELECTRONICS]</div>
-    <h1>[Project name]</h1>
-    <p class="oneliner">[One-sentence summary — what it is and what it does.]</p>
+    <div class="project-tag mono">HIGH-SPEED DIGITAL / SIGNAL INTEGRITY</div>
+    <h1>Active PCIe Gen 4 Signal Conditioner (Redriver)</h1>
+    <p class="oneliner">A 4-channel PCIe Gen 4 (16 GT/s) test board that routes intentionally degraded differential pairs into a redriver IC to study signal restoration and high-speed transmission line effects.</p>
 
     <div class="spec-bar">
-      <div class="spec-cell"><span class="label mono">LAYERS</span><span class="value">4</span></div>
-      <div class="spec-cell"><span class="label mono">DIMENSIONS</span><span class="value">50mm × 30mm</span></div>
-      <div class="spec-cell"><span class="label mono">TOOL</span><span class="value">KiCad 8</span></div>
-      <div class="spec-cell"><span class="label mono">TIMELINE</span><span class="value">6 weeks, 3 revisions</span></div>
+      <div class="spec-cell"><span class="label mono">CHANNELS</span><span class="value">4</span></div>
+      <div class="spec-cell"><span class="label mono">DATA RATE</span><span class="value">16 GT/s (PCIe Gen 4)</span></div>
+      <div class="spec-cell"><span class="label mono">TOOL</span><span class="value">Altium Designer</span></div>
+      <div class="spec-cell"><span class="label mono">STATUS</span><span class="value">Schematic + layout complete</span></div>
     </div>
   </section>
 
   <figure class="hero-media">
     <div class="fiducial tl"></div>
     <div class="fiducial br"></div>
-    <div class="img-placeholder">hero shot — assembled board or top-copper render<br>1920×1080 recommended</div>
-    <!-- replace with: <img src="images/project1-hero.jpg" alt="[Project name] assembled board"> -->
-    <figcaption>[Caption — e.g. "Rev C, assembled and under test."]</figcaption>
+    <div class="img-placeholder">PCB layout render — top copper, 4-channel differential pair routing<br>1920×1080 recommended</div>
+    <!-- replace with: <img src="images/pcie-redriver-hero.jpg" alt="Active PCIe Gen 4 Signal Conditioner PCB layout render"> -->
+    <figcaption>Completed 4-channel layout in Altium. Board was not fabricated — see Status below.</figcaption>
   </figure>
 
   <section class="content-section" style="border-top: none; padding-top: 0;">
     <h2>Overview</h2>
-    <p>[What the board does, who/what it was for, and why it exists. 2-4 sentences of context — this is the "what" before you get into the "how."]</p>
+    <p>This board is a design and layout exercise focused on modeling common high-speed signal degradation mechanisms and evaluating, at the schematic and layout level, how a redriver IC would correct them. Each of the four channels intentionally implements a distinct layout defect — a via crossing, a length mismatch, or added trace loss — so that the same hardware-tuned Texas Instruments redriver and STM32-based equalization control can be evaluated against a range of realistic PCIe Gen 4 signal integrity problems.</p>
   </section>
 
   <section class="content-section">
     <h2>The problem</h2>
-    <p>[What was the hard constraint you were designing against — size, power budget, thermal, EMI, cost, an existing enclosure, a deadline? Be specific with numbers where you can: "had to fit a 4-layer board into a 40×25mm footprint while dissipating 3W" is much stronger than "space was tight."]</p>
+    <p>At 16 GT/s, differential pairs are unforgiving of layout mistakes — a via crossing, a few millimeters of length mismatch, or extra trace length can each independently degrade signal integrity enough to cause link failure. The design challenge was to build a single test PCB that could isolate and reproduce three of these failure modes on separate channels, route each degraded signal into a shared redriver, and keep the redriver's own power delivery clean enough (a stable, low-noise 3.3V rail via a linear regulator with decoupling capacitor networks) that it wasn't introducing additional noise into the measurement.</p>
   </section>
 
   <section class="content-section">
     <h2>Design process</h2>
-    <p>[Walk through your approach: component selection reasoning, key tradeoffs, how you handled the hardest part of the layout. This is the section that shows judgment, not just execution — talk about what you considered and rejected, not only what you did.]</p>
+    <p>The architecture centers on a hardware-tuned Texas Instruments redriver paired with an STM32 microcontroller handling per-channel equalization control. Rather than modeling every possible layout defect on one channel, I split the board into four independent channels — via-induced impedance discontinuity, unmatched length skew, channel loss, and a clean reference — so each failure mode could be isolated and evaluated without interference from the others. The hardest part of the layout was the via-crossing channel: routing each trace of a differential pair around an obstructing via physically splits the coupled lines, and getting that split to reliably produce a defined impedance discontinuity (rather than an uncontrolled one) took several iterations of via placement and return-path planning.</p>
     <div class="gallery-2up">
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">schematic detail</div>
-        <figcaption>[Caption]</figcaption>
+        <div class="img-placeholder" style="aspect-ratio: 4/3;">schematic detail — redriver and STM32 equalization control</div>
+        <figcaption>Redriver and per-channel control schematic.</figcaption>
       </figure>
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">layout detail — routing/placement</div>
-        <figcaption>[Caption]</figcaption>
+        <div class="img-placeholder" style="aspect-ratio: 4/3;">layout detail — via-crossing differential pair</div>
+        <figcaption>Via-induced impedance discontinuity channel, routed and split around the via.</figcaption>
       </figure>
     </div>
   </section>
@@ -206,28 +195,15 @@
   <section class="content-section">
     <h2>Challenges & what I'd change</h2>
     <ul>
-      <li>[A specific problem you hit — e.g. a thermal issue found during bring-up — and how you diagnosed and fixed it.]</li>
-      <li>[Another challenge or a design decision you'd revisit given what you know now.]</li>
+      <li>Isolating the length-skew and channel-loss defects to a specific, repeatable value (rather than an arbitrary one) meant working backward from the redriver's published equalization range to pick trace geometries that would actually stress-test its correction limits, instead of just "adding some extra length."</li>
+      <li>I intentionally stopped this project at schematic capture and layout rather than fabricating the board. In hindsight, I'd scope a smaller two-channel version first — enough to prove the via-crossing and skew defects independently — so a first fab run would be cheaper and faster to iterate on than committing to all four channels at once.</li>
     </ul>
   </section>
 
   <section class="content-section">
-    <h2>Testing & results</h2>
-    <p>[What you measured on the bench, how it performed against spec, and any surprises. Numbers here carry a lot of weight — efficiency, thermal rise, noise floor, whatever's relevant to this board.]</p>
-    <div class="gallery-2up">
-      <figure>
-        <div class="fiducial tl"></div>
-        <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">bench setup / oscilloscope capture</div>
-        <figcaption>[Caption]</figcaption>
-      </figure>
-      <figure>
-        <div class="fiducial tl"></div>
-        <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">final board in enclosure / in use</div>
-        <figcaption>[Caption]</figcaption>
-      </figure>
-    </div>
+    <h2>Status & next steps</h2>
+    <p>This project was carried through schematic capture and full 4-channel PCB layout, completed between July and August 2026, and intentionally stopped there — the board was not fabricated or bench-tested. The goal was to demonstrate high-speed layout judgment (differential pair routing, impedance-aware constraint management, and deliberate defect modeling) at the design stage, rather than to validate a physical prototype in this phase.</p>
+    <p>If fabricated, this board would allow bench validation of each modeled defect and the redriver's correction performance — using oscilloscope eye-diagram capture, TDR-based impedance verification, and measured insertion/return loss against the design targets.</p>
   </section>
 
   <section class="content-section">
@@ -238,15 +214,11 @@
         <a href="#" class="mono download-meta">DOWNLOAD ↓</a>
       </li>
       <li>
-        <span class="download-name">Gerbers + drill files (.zip)</span>
-        <a href="#" class="mono download-meta">DOWNLOAD ↓</a>
-      </li>
-      <li>
         <span class="download-name">Bill of materials (.csv)</span>
         <a href="#" class="mono download-meta">DOWNLOAD ↓</a>
       </li>
       <li>
-        <span class="download-name">Full design repo</span>
+        <span class="download-name">Full design repo (Altium project)</span>
         <a href="#" class="mono download-meta">VIEW ON GITHUB ↗</a>
       </li>
     </ul>
@@ -254,17 +226,17 @@
 
   <nav class="project-nav">
     <a href="project-1.html"><span class="dir mono">← PREVIOUS</span>High-Speed Signal Integrity Test Board</a>
-    <a href="project-3.html"><span class="dir mono">NEXT →</span>[Next project name]</a>
+    <a href="project-3.html"><span class="dir mono">NEXT →</span>Logic Design: FPGA Sequential Circuits</a>
   </nav>
 
 </main>
 
 <footer class="wrap">
-  <div class="copy">© <span id="year"></span> [NAME]</div>
+  <div class="copy">© <span id="year"></span> David Joseph</div>
   <div class="foot-links">
-    <a href="[GITHUB]">GitHub</a>
-    <a href="[LINKEDIN]">LinkedIn</a>
-    <a href="mailto:[EMAIL]">Email</a>
+    <a href="#">GitHub</a>
+    <a href="#">LinkedIn</a>
+    <a href="mailto:todavid2004@gmail.com">Email</a>
   </div>
 </footer>
 
