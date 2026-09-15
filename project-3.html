@@ -15,7 +15,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[PROJECT NAME] — [NAME]</title>
+<title>FPGA DDR interface routing board — David Joseph</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -146,7 +146,7 @@
 
 <header>
   <div class="header-inner">
-    <a class="brand" href="index.html">[NAME]</a>
+    <a class="brand" href="index.html">David Joseph</a>
     <a class="back-link" href="index.html#work">← All projects</a>
   </div>
 </header>
@@ -154,51 +154,51 @@
 <main class="wrap">
 
   <section class="project-hero">
-    <div class="project-tag mono">[TAG — e.g. POWER ELECTRONICS]</div>
-    <h1>[Project name]</h1>
-    <p class="oneliner">[One-sentence summary — what it is and what it does.]</p>
+    <div class="project-tag mono">MEMORY / HIGH-SPEED DIGITAL</div>
+    <h1>FPGA DDR interface routing board</h1>
+    <p class="oneliner">A 6-layer FPGA PCB built as a test vehicle for controlled-impedance DDR memory routing, from stackup design through bring-up.</p>
 
     <div class="spec-bar">
-      <div class="spec-cell"><span class="label mono">LAYERS</span><span class="value">4</span></div>
-      <div class="spec-cell"><span class="label mono">DIMENSIONS</span><span class="value">50mm × 30mm</span></div>
-      <div class="spec-cell"><span class="label mono">TOOL</span><span class="value">KiCad 8</span></div>
-      <div class="spec-cell"><span class="label mono">TIMELINE</span><span class="value">6 weeks, 3 revisions</span></div>
+      <div class="spec-cell"><span class="label mono">LAYERS</span><span class="value">6</span></div>
+      <div class="spec-cell"><span class="label mono">DIMENSIONS</span><span class="value">[fill in]</span></div>
+      <div class="spec-cell"><span class="label mono">TOOL</span><span class="value">EasyEDA</span></div>
+      <div class="spec-cell"><span class="label mono">STATUS</span><span class="value">Assembly in progress</span></div>
     </div>
   </section>
 
   <figure class="hero-media">
     <div class="fiducial tl"></div>
     <div class="fiducial br"></div>
-    <div class="img-placeholder">hero shot — assembled board or top-copper render<br>1920×1080 recommended</div>
-    <!-- replace with: <img src="images/project1-hero.jpg" alt="[Project name] assembled board"> -->
-    <figcaption>[Caption — e.g. "Rev C, assembled and under test."]</figcaption>
+    <div class="img-placeholder">hero shot — bare board or partially-populated top-copper photo<br>1920×1080 recommended</div>
+    <!-- replace with: <img src="images/ddr-routing-hero.jpg" alt="FPGA DDR interface routing board, top copper"> -->
+    <figcaption>Partially populated board, prior to FPGA and DDR3 mounting.</figcaption>
   </figure>
 
   <section class="content-section" style="border-top: none; padding-top: 0;">
     <h2>Overview</h2>
-    <p>[What the board does, who/what it was for, and why it exists. 2-4 sentences of context — this is the "what" before you get into the "how."]</p>
+    <p>This project is a 6-layer FPGA PCB carrying a DDR memory interface, designed as a dedicated test vehicle for high-speed digital routing rather than for a specific application. The goal was to work through the full loop of controlled-impedance stackup design, length-matched routing, and physical bring-up — then validate the design choices against real measurements once the board is populated and running.</p>
   </section>
 
   <section class="content-section">
     <h2>The problem</h2>
-    <p>[What was the hard constraint you were designing against — size, power budget, thermal, EMI, cost, an existing enclosure, a deadline? Be specific with numbers where you can: "had to fit a 4-layer board into a 40×25mm footprint while dissipating 3W" is much stronger than "space was tight."]</p>
+    <p>DDR memory interfaces are unforgiving of sloppy layout: address/command lines need consistent 50Ω single-ended impedance, clock and DQS pairs need 100Ω differential impedance, and every data lane needs its flight time matched to its strobe within a tight tolerance. Hitting all three at once, on a 6-layer board, meant the stackup itself had to do real work — continuous ground references under every high-speed layer, split power planes to keep FPGA core and memory I/O rails from interfering with each other, and enough routing discipline to hold length-matching and 3W spacing rules through some genuinely cramped areas near the FPGA's memory interface pins.</p>
   </section>
 
   <section class="content-section">
     <h2>Design process</h2>
-    <p>[Walk through your approach: component selection reasoning, key tradeoffs, how you handled the hardest part of the layout. This is the section that shows judgment, not just execution — talk about what you considered and rejected, not only what you did.]</p>
+    <p>The stackup was the first decision and it shaped everything after it: Layer 1 carries high-speed signals as microstrip, Layer 2 is a solid ground plane directly beneath it, Layer 3 handles the DDR data lanes as stripline, Layer 4 splits into separate VCC_CORE and VDDQ power planes, Layer 5 is a second solid ground reference, and Layer 6 takes the low-speed escape routing. Putting a continuous ground plane on both sides of the high-speed layers keeps loop inductance down and return paths predictable, which matters more on a DDR interface than almost any other routing decision. From there, the harder work was in the details — serpentine length-matching each data lane to its strobe, holding 3W spacing between aggressive signals to limit crosstalk, and placing low-ESR decoupling capacitors right at the FPGA's power pins to handle the fast transient current demand of digital switching.</p>
     <div class="gallery-2up">
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">schematic detail</div>
-        <figcaption>[Caption]</figcaption>
+        <div class="img-placeholder" style="aspect-ratio: 4/3;">stackup diagram / cross-section</div>
+        <figcaption>6-layer stackup: GND planes bracket every high-speed signal layer.</figcaption>
       </figure>
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">layout detail — routing/placement</div>
-        <figcaption>[Caption]</figcaption>
+        <div class="img-placeholder" style="aspect-ratio: 4/3;">layout detail — DDR length-matching / serpentine routing</div>
+        <figcaption>Length-matched DDR data lanes near the FPGA memory interface.</figcaption>
       </figure>
     </div>
   </section>
@@ -206,26 +206,26 @@
   <section class="content-section">
     <h2>Challenges & what I'd change</h2>
     <ul>
-      <li>[A specific problem you hit — e.g. a thermal issue found during bring-up — and how you diagnosed and fixed it.]</li>
-      <li>[Another challenge or a design decision you'd revisit given what you know now.]</li>
+      <li>Fitting serpentine length-matching for the DDR data lanes into the routing channels near the FPGA's memory interface pins, without violating the 3W spacing rule against adjacent signals, took several layout passes to get right.</li>
+      <li>Before mounting the FPGA and DDR3 ICs, I validated every step-down voltage rail on the bare board to catch an over-voltage condition early rather than risk damaging the primary components — a sequencing decision I'd repeat on any board this dense.</li>
     </ul>
   </section>
 
   <section class="content-section">
     <h2>Testing & results</h2>
-    <p>[What you measured on the bench, how it performed against spec, and any surprises. Numbers here carry a lot of weight — efficiency, thermal rise, noise floor, whatever's relevant to this board.]</p>
+    <p>This project is currently at the assembly stage: surface-mount soldering is underway, and I've validated the step-down voltage rails on the bare board ahead of mounting the FPGA and DDR3 ICs. An initial FPGA programming sequence has run successfully on the partially-populated board. Once the memory ICs are mounted, the next step is running eye diagram tests on the DDR data lanes and TDR impedance testing to check the stackup against its 50Ω single-ended and 100Ω differential targets — results will be added here once that testing is complete.</p>
     <div class="gallery-2up">
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">bench setup / oscilloscope capture</div>
-        <figcaption>[Caption]</figcaption>
+        <div class="img-placeholder" style="aspect-ratio: 4/3;">bring-up photo — voltage rail validation</div>
+        <figcaption>Validating step-down rails prior to mounting FPGA and DDR3 ICs.</figcaption>
       </figure>
       <figure>
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <div class="img-placeholder" style="aspect-ratio: 4/3;">final board in enclosure / in use</div>
-        <figcaption>[Caption]</figcaption>
+        <div class="img-placeholder" style="aspect-ratio: 4/3;">eye diagram / TDR capture (pending)</div>
+        <figcaption>To be added after DDR3 mounting and signal integrity testing.</figcaption>
       </figure>
     </div>
   </section>
@@ -260,11 +260,11 @@
 </main>
 
 <footer class="wrap">
-  <div class="copy">© <span id="year"></span> [NAME]</div>
+  <div class="copy">© <span id="year"></span> David Joseph</div>
   <div class="foot-links">
     <a href="[GITHUB]">GitHub</a>
     <a href="[LINKEDIN]">LinkedIn</a>
-    <a href="mailto:[EMAIL]">Email</a>
+    <a href="mailto:todavid2004@gmail.com">Email</a>
   </div>
 </footer>
 
