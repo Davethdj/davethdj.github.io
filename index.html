@@ -176,13 +176,13 @@
     display: flex; align-items: center; justify-content: center;
     position: absolute; top: 6px; left: 6px; z-index: 5;
     width: 24px; height: 24px; border-radius: 50%;
-    background: var(--ink); color: var(--bg); border: none; cursor: pointer; padding: 0;
+    background: var(--copper); color: var(--bg); border: none; cursor: pointer; padding: 0;
     font-size: 14px; line-height: 1;
     box-shadow: 0 3px 10px rgba(0,0,0,0.22);
     transition: background 0.15s ease, transform 0.15s ease;
   }
   .hero-thumb-btn:active{ transform: scale(0.9); }
-  .hero-thumb-btn[aria-expanded="true"]{ background: var(--copper); }
+  .hero-thumb-btn[aria-expanded="true"]{ background: var(--copper-dim); }
   .hero-thumb-btn .icon-plus{ display: inline-block; transition: transform 0.2s ease; }
   .hero-thumb-btn[aria-expanded="true"] .icon-plus{ transform: rotate(45deg); }
   .hero-thumb-label{
