@@ -248,20 +248,8 @@
   .project.reverse .project-media{ order: 2; }
   .project.reverse .project-body{ order: 1; }
 
-  /* mobile-only: compact spec line, expand/collapse — hidden on desktop */
+  /* mobile-only: compact spec line — hidden on desktop */
   .spec-compact{ display: none; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--grey); margin: 0 0 14px; }
-  .project-toggle{
-    display: none;
-    align-items: center; gap: 6px;
-    background: none; border: 1px solid var(--line-strong); color: var(--ink);
-    font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;
-    padding: 7px 14px; border-radius: 999px; cursor: pointer;
-    margin: 0 0 16px;
-    transition: border-color 0.15s ease, color 0.15s ease;
-  }
-  .project-toggle:hover{ border-color: var(--copper); color: var(--copper); }
-  .project-toggle .toggle-icon{ display: inline-block; transition: transform 0.2s ease; }
-  .project-toggle[aria-expanded="true"] .toggle-icon{ transform: rotate(180deg); }
 
   .project-media{ position: relative; }
   .img-placeholder{
@@ -310,12 +298,17 @@
     nav{ gap: 18px; font-size: 13px; }
     .spec-list{ grid-template-columns: 1fr 1fr; }
 
-    /* progressive disclosure: image, title, tag, compact spec by default */
+    /* simplified card: image, title, tag, compact spec, then a single View Project button */
     .spec-compact{ display: block; }
-    .project-toggle{ display: inline-flex; }
     .project-more{ display: none; }
-    .project-more.open{ display: block; }
-    .project-more .spec-list{ display: none; }
+    .project-links a{
+      display: inline-flex; align-items: center; gap: 6px;
+      background: none; border: 1px solid var(--line-strong); color: var(--ink);
+      font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;
+      padding: 7px 14px; border-radius: 999px;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .project-links a:hover{ border-color: var(--copper); color: var(--copper); }
 
     /* simplified hero: name + one-line tagline, single primary action */
     .hero{ padding: 56px 0 48px; }
@@ -493,9 +486,6 @@
         <div class="project-tag mono">High Speed Digital Design | ECE 173</div>
         <h3>High Speed Transmission Line Test Board</h3>
         <p class="spec-compact">2 layers · Assembled and Tested</p>
-        <button class="project-toggle" type="button" aria-expanded="false" aria-controls="proj-1-more">
-          <span class="toggle-label">Show details</span><span class="toggle-icon" aria-hidden="true">⌄</span>
-        </button>
         <div class="project-more" id="proj-1-more">
           <p class="project-desc">This board made abstract signal-integrity theory tangible: SMA connectors let us drive and probe a 20 Mbps signal path directly, isolating and measuring channel loss, crosstalk, and ground bounce with a scope instead of just calculating them on paper.</p>
           <div class="spec-list">
@@ -522,9 +512,6 @@
         <div class="project-tag mono">High Speed Digital Design</div>
         <h3>Differential Pair Test Board</h3>
         <p class="spec-compact">6 layers · Design Complete</p>
-        <button class="project-toggle" type="button" aria-expanded="false" aria-controls="proj-2-more">
-          <span class="toggle-label">Show details</span><span class="toggle-icon" aria-hidden="true">⌄</span>
-        </button>
         <div class="project-more" id="proj-2-more">
           <p class="project-desc">[Description — role, constraints, what you'd do differently.]</p>
           <div class="spec-list">
@@ -551,9 +538,6 @@
         <div class="project-tag mono">FPGA Design</div>
         <h3>[FPGA-DDR3 Board Routing]</h3>
         <p class="spec-compact">6 layers · Design Complete</p>
-        <button class="project-toggle" type="button" aria-expanded="false" aria-controls="proj-3-more">
-          <span class="toggle-label">Show details</span><span class="toggle-icon" aria-hidden="true">⌄</span>
-        </button>
         <div class="project-more" id="proj-3-more">
           <p class="project-desc">Executed complex trace routing and strict impedance control for a 6-layer FPGA-DDR hardware design to optimize high-speed digital performance.</p>
           <div class="spec-list">
@@ -580,9 +564,6 @@
         <div class="project-tag mono">Intro to PCB Design | ECE 174</div>
         <h3>Audio Amplifier Layout</h3>
         <p class="spec-compact">2 layers · Manufactured</p>
-        <button class="project-toggle" type="button" aria-expanded="false" aria-controls="proj-4-more">
-          <span class="toggle-label">Show details</span><span class="toggle-icon" aria-hidden="true">⌄</span>
-        </button>
         <div class="project-more" id="proj-4-more">
           <p class="project-desc">[Description.]</p>
           <div class="spec-list">
@@ -670,16 +651,6 @@
   }
   document.querySelectorAll('a[href="#skills"], a[href="#contact"]').forEach(link => {
     link.addEventListener('click', () => flashSection(link.getAttribute('href').slice(1)));
-  });
-
-  document.querySelectorAll('.project-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = document.getElementById(btn.getAttribute('aria-controls'));
-      if (!target) return;
-      const open = target.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      btn.querySelector('.toggle-label').textContent = open ? 'Hide details' : 'Show details';
-    });
   });
 
   document.querySelectorAll('.nav-tab').forEach(tab => {
