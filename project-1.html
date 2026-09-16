@@ -128,13 +128,22 @@
     .section-toggle{
       display: flex; align-items: center; justify-content: space-between; gap: 12px;
       cursor: pointer;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      padding: 14px 16px;
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
+    .section-toggle:active{ background: rgba(216,67,42,0.08); border-color: var(--copper); }
     .section-toggle .chevron{
-      display: inline-block; font-size: 13px; color: var(--copper); flex-shrink: 0;
-      transition: transform 0.2s ease;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--copper); color: #fff;
+      font-size: 13px; line-height: 1;
+      transition: transform 0.2s ease, background 0.15s ease;
     }
-    .section-toggle[aria-expanded="true"] .chevron{ transform: rotate(180deg); }
-    .section-body{ display: none; margin-top: 18px; }
+    .section-toggle[aria-expanded="true"] .chevron{ transform: rotate(180deg); background: var(--copper-dim, var(--copper)); }
+    .section-body{ display: none; margin-top: 18px; padding: 0 2px; }
     .section-body.open{ display: block; }
   }
 
@@ -254,8 +263,7 @@
   </figure>
 
   <section class="content-section" style="border-top: none; padding-top: 0;">
-    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-1-body">Overview<span class="chevron" aria-hidden="true">▾</span></button></h2>
-    <div class="section-body" id="sec-1-body">
+    <h2>Overview</h2>
     <p>The goal was to build a board that could isolate and independently observe three transmission-line effects — channel (insertion) loss, ground bounce, and crosstalk — on real hardware instead of leaving them as textbook concepts. The team split the work into research, breadboard verification, DRC setup, schematic capture, layout, manufacturability review, assembly, and test, coordinated through a shared Altium 365 workspace with DRC rules set to the class's advanced PCB requirements.</p>
     <p>My part: I led the research and schematic section for channel loss (while studying all three phenomena), set up the Altium 365 workspace and DRC rules, created the full board layout, assembled the populated board, and set up and ran the bench test — scope, waveform generator, RF generator, DC supply, and the BNC/SMA interconnects — for all three measurements.</p>
 
@@ -269,7 +277,6 @@
         <li>Research lead — formally assigned channel loss, but researched all three phenomena to support the full test plan</li>
       </ul>
     </div>
-  </div>
   </section>
 
   <section class="content-section">
