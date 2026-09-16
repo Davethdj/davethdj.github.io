@@ -49,14 +49,17 @@
   /* background dots — playful confetti-style backdrop, very low contrast */
   .grid-bg{
     background-image: radial-gradient(var(--line-strong) 2px, transparent 2px);
-    background-size: 28px 28px;
+    background-size: 34px 34px;
     background-position: -1px -1px;
-    opacity: 0.5;
+    opacity: 0.22;
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    mask-image: linear-gradient(to bottom, black, black 600px, transparent 1400px);
+    mask-image: linear-gradient(to bottom, black, black 500px, transparent 1000px);
+  }
+  @media (max-width: 700px){
+    .grid-bg{ display: none; }
   }
 
   a{ color: var(--copper); text-decoration: none; border-bottom: 1px solid transparent; }
