@@ -272,38 +272,6 @@
   .fiducial.tl{ top: -6px; left: -6px; }
   .fiducial.br{ bottom: -6px; right: -6px; }
 
-  /* mobile-only: one corner button per project image, revealing the name over an orange tint */
-  .project-info-btn{ display: none; }
-  .project-tint{ display: none; }
-  @media (max-width: 760px){
-    .project-media .fiducial{ display: none; }
-    .project-info-btn{
-      display: flex; align-items: center; justify-content: center;
-      position: absolute; top: 12px; right: 12px; z-index: 5;
-      width: 34px; height: 34px; border-radius: 50%;
-      background: var(--ink); color: var(--bg); border: none; cursor: pointer;
-      font-size: 18px; line-height: 1; padding: 0;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-      transition: background 0.15s ease, transform 0.15s ease;
-    }
-    .project-info-btn:active{ transform: scale(0.92); }
-    .project-info-btn[aria-expanded="true"]{ background: var(--copper); }
-    .project-info-btn .icon-plus{ transition: transform 0.2s ease; }
-    .project-info-btn[aria-expanded="true"] .icon-plus{ transform: rotate(45deg); }
-    .project-tint{
-      display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;
-      position: absolute; inset: 0; z-index: 4;
-      background: rgba(216,67,42,0.68);
-      color: #fff; font-family: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
-      font-weight: 600; font-size: 16px; line-height: 1.25;
-      border-radius: 10px;
-      transform: translateY(-100%);
-      transition: transform 0.3s ease;
-      pointer-events: none;
-    }
-    .project-tint.open{ transform: translateY(0); pointer-events: auto; }
-  }
-
   .project-tag{
     font-family: 'IBM Plex Mono', monospace; font-size: 12px;
     color: var(--green);
@@ -489,10 +457,6 @@
       <div class="project-media">
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <button class="project-info-btn" type="button" aria-expanded="false" aria-controls="proj-1-tint" aria-label="Show project name">
-          <span class="icon-plus" aria-hidden="true">+</span>
-        </button>
-        <div class="project-tint" id="proj-1-tint">High Speed Transmission Line Test Board</div>
         <img src="images/high-speed-transmission-line.jpg" alt="High Speed Transmission Line Test Board">
       </div>
       <div class="project-body">
@@ -522,10 +486,6 @@
       <div class="project-media">
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <button class="project-info-btn" type="button" aria-expanded="false" aria-controls="proj-2-tint" aria-label="Show project name">
-          <span class="icon-plus" aria-hidden="true">+</span>
-        </button>
-        <div class="project-tint" id="proj-2-tint">Differential Pair Test Board</div>
         <img src="images/differential-pair.jpg" alt="Differential Pair Test Board">
       </div>
       <div class="project-body">
@@ -555,10 +515,6 @@
       <div class="project-media">
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <button class="project-info-btn" type="button" aria-expanded="false" aria-controls="proj-3-tint" aria-label="Show project name">
-          <span class="icon-plus" aria-hidden="true">+</span>
-        </button>
-        <div class="project-tint" id="proj-3-tint">FPGA-DDR3 Board Routing</div>
         <img src="images/fpga-ddr3-routing.jpg" alt="FPGA-DDR3 Board Routing">
       </div>
       <div class="project-body">
@@ -588,10 +544,6 @@
       <div class="project-media">
         <div class="fiducial tl"></div>
         <div class="fiducial br"></div>
-        <button class="project-info-btn" type="button" aria-expanded="false" aria-controls="proj-4-tint" aria-label="Show project name">
-          <span class="icon-plus" aria-hidden="true">+</span>
-        </button>
-        <div class="project-tint" id="proj-4-tint">Audio Amplifier Layout</div>
         <img src="images/audio-amplifier-layout.jpg" alt="Audio Amplifier Layout">
       </div>
       <div class="project-body">
@@ -717,20 +669,6 @@
     if (e.target.closest('.nav-dropdown')) return;
     document.querySelectorAll('.nav-dropdown-menu.open').forEach(m => m.classList.remove('open'));
     document.querySelectorAll('.nav-tab[aria-expanded="true"]').forEach(t => t.setAttribute('aria-expanded', 'false'));
-  });
-
-  document.querySelectorAll('.project-info-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tint = document.getElementById(btn.getAttribute('aria-controls'));
-      if (!tint) return;
-      const willOpen = !tint.classList.contains('open');
-      document.querySelectorAll('.project-tint.open').forEach(t => t.classList.remove('open'));
-      document.querySelectorAll('.project-info-btn[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded', 'false'));
-      if (willOpen){
-        tint.classList.add('open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    });
   });
 </script>
 
