@@ -166,6 +166,31 @@
   .textlink{ font-size: 14px; color: var(--ink); border-bottom: 1px solid var(--line-strong); transition: color 0.15s ease; }
   .textlink:hover{ color: var(--copper); }
 
+  /* mobile-only: mini project photos + a big "View Projects" button, first thing on the page */
+  .hero-preview{ display: none; }
+  .hero-thumbs{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex: 1 1 auto; }
+  .hero-thumbs img{
+    width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block;
+    border-radius: 12px; border: 1px solid var(--line-strong);
+    box-shadow: 0 4px 12px rgba(216,67,42,0.1);
+  }
+  .hero-view-btn{
+    flex: 0 0 132px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    background: var(--ink); color: var(--bg);
+    border-radius: 20px; border-bottom: none;
+    font-family: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+    font-size: 15px; font-weight: 600; text-align: center; line-height: 1.2;
+    padding: 16px 10px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+  .hero-view-btn:hover{ background: var(--copper); transform: translateY(-2px); box-shadow: 0 10px 22px rgba(216,67,42,0.32); }
+  .hero-view-btn .arrow-down{ font-size: 20px; animation: hero-arrow-bob 1.6s ease-in-out infinite; }
+  @keyframes hero-arrow-bob{ 0%, 100%{ transform: translateY(0); } 50%{ transform: translateY(4px); } }
+  @media (prefers-reduced-motion: reduce){
+    .hero-view-btn .arrow-down{ animation: none; }
+  }
+
   /* section headings */
   .section{ padding: 64px 0; border-top: 1px solid var(--line); }
   .section-head{
@@ -275,9 +300,9 @@
     .hero-eyebrow{ display: none; }
     .hero-h1-full, .hero-p-full{ display: none; }
     .hero-name-mobile{ display: block; font-size: clamp(34px, 11vw, 44px); margin: 0 0 10px; }
-    .hero-tagline-mobile{ display: block; font-size: 16px; margin: 0 0 28px; }
-    .hero-secondary{ display: none; }
-    .hero-links .btn{ width: 100%; justify-content: center; }
+    .hero-tagline-mobile{ display: block; font-size: 16px; margin: 0 0 24px; }
+    .hero-links{ display: none; }
+    .hero-preview{ display: flex; align-items: stretch; gap: 14px; }
 
     /* header nav: "Work"/"Contact" become tap-to-open dropdowns of their links */
     .nav-desktop-only{ display: none; }
@@ -369,6 +394,19 @@
         <a class="textlink" href="downloads/David-Joseph-Resume.pdf" download>Resume ↓</a>
         <a class="textlink" href="mailto:todavid2004@gmail.com">Email</a>
       </div>
+    </div>
+
+    <div class="hero-preview">
+      <div class="hero-thumbs">
+        <img src="images/high-speed-transmission-line.jpg" alt="High Speed Transmission Line Test Board">
+        <img src="images/differential-pair.jpg" alt="Differential Pair Test Board">
+        <img src="images/fpga-ddr3-routing.jpg" alt="FPGA-DDR3 Board Routing">
+        <img src="images/audio-amplifier-layout.jpg" alt="Audio Amplifier Layout">
+      </div>
+      <a class="hero-view-btn" href="#work">
+        <span>View Projects</span>
+        <span class="arrow-down" aria-hidden="true">↓</span>
+      </a>
     </div>
   </section>
 
