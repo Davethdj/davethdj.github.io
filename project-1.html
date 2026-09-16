@@ -115,6 +115,29 @@
   .content-section ul{ max-width: var(--maxw-text); padding-left: 20px; margin: 0 0 16px; }
   .content-section li{ margin-bottom: 8px; }
 
+  /* mobile-only: collapsible sections */
+  .section-toggle{
+    display: block; width: 100%; text-align: left;
+    background: none; border: none; padding: 0; margin: 0;
+    font: inherit; color: inherit; cursor: default;
+  }
+  button.section-toggle:focus-visible{ outline: 2px solid var(--copper); outline-offset: 3px; }
+  .section-toggle .chevron{ display: none; }
+  @media (max-width: 700px){
+    .content-section h2{ margin: 0; }
+    .section-toggle{
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      cursor: pointer;
+    }
+    .section-toggle .chevron{
+      display: inline-block; font-size: 13px; color: var(--copper); flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .section-toggle[aria-expanded="true"] .chevron{ transform: rotate(180deg); }
+    .section-body{ display: none; margin-top: 18px; }
+    .section-body.open{ display: block; }
+  }
+
   .gallery-2up{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
   @media (max-width: 700px){ .gallery-2up{ grid-template-columns: 1fr; } }
 
@@ -231,7 +254,8 @@
   </figure>
 
   <section class="content-section" style="border-top: none; padding-top: 0;">
-    <h2>Overview</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-1-body">Overview<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-1-body">
     <p>The goal was to build a board that could isolate and independently observe three transmission-line effects — channel (insertion) loss, ground bounce, and crosstalk — on real hardware instead of leaving them as textbook concepts. The team split the work into research, breadboard verification, DRC setup, schematic capture, layout, manufacturability review, assembly, and test, coordinated through a shared Altium 365 workspace with DRC rules set to the class's advanced PCB requirements.</p>
     <p>My part: I led the research and schematic section for channel loss (while studying all three phenomena), set up the Altium 365 workspace and DRC rules, created the full board layout, assembled the populated board, and set up and ran the bench test — scope, waveform generator, RF generator, DC supply, and the BNC/SMA interconnects — for all three measurements.</p>
 
@@ -245,20 +269,24 @@
         <li>Research lead — formally assigned channel loss, but researched all three phenomena to support the full test plan</li>
       </ul>
     </div>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Test setup & methodology</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-2-body">Test setup & methodology<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-2-body">
     <ul>
       <li><strong>Channel loss</strong> — insertion loss computed as 20·log₁₀(V<sub>out</sub>/V<sub>in</sub>), comparing the input (CH1) against the signal after the channel (CH2). Trace spacing was held to at least 3× the trace width so coupling from adjacent traces wouldn't contaminate the loss measurement itself.</li>
       <li><strong>Crosstalk</strong> — the aggressor trace was always driven from its near-end SMA with the far end terminated in 50 Ω. Near-end crosstalk (NEXT) was read at the victim's near-end SMA (far end terminated); far-end crosstalk (FEXT) was read at the victim's far-end SMA (near end terminated). Coupling % = V<sub>victim</sub> / V<sub>aggressor</sub>.</li>
       <li><strong>Ground bounce</strong> — measured with and without a 4.7 µF decoupling capacitor at the IC's ground pin, at 1 MHz and 10 MHz.</li>
     </ul>
     <p>Primary instrument was a Keysight InfiniiVision DSOX3052G (500 MHz / 5 GSa/s). A handful of early ground-bounce reference captures used a Keysight EDUX1052G (50 MHz / 1 GSa/s) instead — those are called out separately below since they're not directly comparable. Signal generation and power came from a Keysight EDU33212A waveform generator and EDU36311A DC supply, with 50 Ω terminators on unused ends throughout.</p>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Results: channel loss</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-3-body">Results: channel loss<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-3-body">
     <p>With the mislabeled crosstalk points removed from the dataset, the remaining data shows a smooth, physically sensible increase in loss with frequency:</p>
 
     <div class="chart-card">
@@ -299,10 +327,12 @@
       <span class="callout-label mono">BRING-UP ISSUE</span>
       <p>At the board's actual operating rate of 20 Mbps, the trace run showed almost no measurable attenuation — not enough length or frequency content to see the effect clearly. To actually characterize the channel, we drove it with a dedicated RF signal generator swept up into the 100–300+ MHz range instead, using that sweep as a stand-in for genuinely high-speed signal content. That's where the data above comes from.</p>
     </div>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Results: ground bounce</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-4-body">Results: ground bounce<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-4-body">
     <p>Ground bounce was measured as noise coupled onto the ground reference during signal switching, with and without a 4.7 µF decoupling capacitor at the IC's ground pin:</p>
 
     <div class="table-scroll">
@@ -343,10 +373,12 @@
       <span class="callout-label mono">BRING-UP ISSUE</span>
       <p>The first bounce measurements didn't make sense — the SMA meant to read the ground pin was showing what looked like the inverted input signal plus ringing on every edge. The cause: the SMA's inner conductor, which was supposed to reference the ground pin, was never actually tied to the board's common ground plane, so the scope was reading coupled inverted input, not real ground bounce. The fix was to bond the SMA's inner and outer shell together — the outer shell was already tied to the common ground plane — and probe the actual IC ground pin with a lead clipped to that bonded SMA.</p>
     </div>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Results: crosstalk (NEXT / FEXT)</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-5-body">Results: crosstalk (NEXT / FEXT)<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-5-body">
     <p>Near-end crosstalk (NEXT) exceeded far-end crosstalk (FEXT) at every matched frequency:</p>
 
     <div class="table-scroll">
@@ -410,25 +442,31 @@
         </table>
       </div>
     </details>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Challenges & what I'd change</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-6-body">Challenges & what I'd change<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-6-body">
     <ul>
       <li>Channel loss showed almost nothing at the board's real 20 Mbps rate — diagnosed as a mismatch between our trace length and the signal's frequency content, resolved by driving the channel with a swept RF source instead so the loss mechanism was actually visible on the scope.</li>
       <li>The ground bounce SMA was floating relative to the common ground plane, so early captures showed coupled inverted input rather than real bounce — traced to the SMA's inner conductor never being tied down, fixed by bonding inner and outer shell together.</li>
       <li>A batch of channel-loss captures ended up mislabeled as crosstalk data and had to be identified and excluded during analysis. Next time: log the test configuration (which phenomenon, which frequency, cap in/out) directly in the filename or a shared sheet at capture time, not after the fact.</li>
     </ul>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Conclusions & next steps</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-7-body">Conclusions & next steps<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-7-body">
     <p>Channel loss increases with frequency in the direction skin effect and FR4 dielectric loss predict, but I haven't yet run the actual theoretical transmission-line calculation for this board's specific trace length, spacing, dielectric constant, and copper weight to check the measured curve against a predicted one — that's the clearest next step. Ground bounce dropped by roughly 30% with the 4.7 µF decoupling cap at both test frequencies, in line with what decoupling is supposed to do. NEXT beat FEXT at every frequency I measured, which is consistent with near-end coupling typically dominating over far-end for this kind of trace geometry — though, same as the channel loss theory, I'd want to run the actual coupling-coefficient calculation before calling that confirmed rather than just consistent.</p>
     <p>Beyond the specific numbers, this project is where a lot of high-speed design phenomena stopped being textbook concepts for me — and where I learned, the hard way, how much a mislabeled file or an unrecorded test configuration costs you later. Every board since has started with a capture log.</p>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Downloads</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-8-body">Downloads<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-8-body">
     <ul class="download-list">
       <li>
         <span class="download-name">Full measurement report (PDF)</span>
@@ -443,6 +481,7 @@
         <a href="downloads/project-1-3d-model.pdf" class="mono download-meta" download>DOWNLOAD ↓</a>
       </li>
     </ul>
+  </div>
   </section>
 
   <nav class="project-nav">
@@ -506,6 +545,16 @@
       }
     });
   }
+
+  document.querySelectorAll('.section-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!body) return;
+      const open = body.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) window.dispatchEvent(new Event('resize'));
+    });
+  });
 </script>
 
 </body>

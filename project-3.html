@@ -100,6 +100,29 @@
   .content-section ul{ max-width: var(--maxw-text); padding-left: 20px; margin: 0 0 16px; }
   .content-section li{ margin-bottom: 8px; }
 
+  /* mobile-only: collapsible sections */
+  .section-toggle{
+    display: block; width: 100%; text-align: left;
+    background: none; border: none; padding: 0; margin: 0;
+    font: inherit; color: inherit; cursor: default;
+  }
+  button.section-toggle:focus-visible{ outline: 2px solid var(--copper); outline-offset: 3px; }
+  .section-toggle .chevron{ display: none; }
+  @media (max-width: 700px){
+    .content-section h2{ margin: 0; }
+    .section-toggle{
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      cursor: pointer;
+    }
+    .section-toggle .chevron{
+      display: inline-block; font-size: 13px; color: var(--copper); flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .section-toggle[aria-expanded="true"] .chevron{ transform: rotate(180deg); }
+    .section-body{ display: none; margin-top: 18px; }
+    .section-body.open{ display: block; }
+  }
+
   /* two-up image gallery within a section */
   .gallery-2up{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
   @media (max-width: 700px){ .gallery-2up{ grid-template-columns: 1fr; } }
@@ -153,17 +176,22 @@
   </figure>
 
   <section class="content-section" style="border-top: none; padding-top: 0;">
-    <h2>Overview</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-1-body">Overview<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-1-body">
     <p>This project is a 6-layer FPGA PCB carrying a DDR memory interface, designed as a dedicated test vehicle for high-speed digital routing rather than for a specific application. The goal was to work through the full loop of controlled-impedance stackup design, length-matched routing, and physical bring-up — then validate the design choices against real measurements once the board is populated and running.</p>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>The problem</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-2-body">The problem<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-2-body">
     <p>DDR memory interfaces are unforgiving of sloppy layout: address/command lines need consistent 50Ω single-ended impedance, clock and DQS pairs need 100Ω differential impedance, and every data lane needs its flight time matched to its strobe within a tight tolerance. Hitting all three at once, on a 6-layer board, meant the stackup itself had to do real work — continuous ground references under every high-speed layer, split power planes to keep FPGA core and memory I/O rails from interfering with each other, and enough routing discipline to hold length-matching and 3W spacing rules through some genuinely cramped areas near the FPGA's memory interface pins.</p>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Design process</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-3-body">Design process<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-3-body">
     <p>The stackup was the first decision and it shaped everything after it: Layer 1 carries high-speed signals as microstrip, Layer 2 is a solid ground plane directly beneath it, Layer 3 handles the DDR data lanes as stripline, Layer 4 splits into separate VCC_CORE and VDDQ power planes, Layer 5 is a second solid ground reference, and Layer 6 takes the low-speed escape routing. Putting a continuous ground plane on both sides of the high-speed layers keeps loop inductance down and return paths predictable, which matters more on a DDR interface than almost any other routing decision. From there, the harder work was in the details — serpentine length-matching each data lane to its strobe, holding 3W spacing between aggressive signals to limit crosstalk, and placing low-ESR decoupling capacitors right at the FPGA's power pins to handle the fast transient current demand of digital switching.</p>
     <div class="gallery-2up">
       <figure>
@@ -179,18 +207,22 @@
         <figcaption>Length-matched DDR data lanes near the FPGA memory interface.</figcaption>
       </figure>
     </div>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Challenges & what I'd change</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-4-body">Challenges & what I'd change<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-4-body">
     <ul>
       <li>Fitting serpentine length-matching for the DDR data lanes into the routing channels near the FPGA's memory interface pins, without violating the 3W spacing rule against adjacent signals, took several layout passes to get right.</li>
       <li>Before mounting the FPGA and DDR3 ICs, I validated every step-down voltage rail on the bare board to catch an over-voltage condition early rather than risk damaging the primary components — a sequencing decision I'd repeat on any board this dense.</li>
     </ul>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Testing & results</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-5-body">Testing & results<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-5-body">
     <p>This project is currently at the assembly stage: surface-mount soldering is underway, and I've validated the step-down voltage rails on the bare board ahead of mounting the FPGA and DDR3 ICs. An initial FPGA programming sequence has run successfully on the partially-populated board. Once the memory ICs are mounted, the next step is running eye diagram tests on the DDR data lanes and TDR impedance testing to check the stackup against its 50Ω single-ended and 100Ω differential targets — results will be added here once that testing is complete.</p>
     <div class="gallery-2up">
       <figure>
@@ -206,6 +238,7 @@
         <figcaption>To be added after DDR3 mounting and signal integrity testing.</figcaption>
       </figure>
     </div>
+  </div>
   </section>
 
   <nav class="project-nav">
@@ -226,6 +259,16 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  document.querySelectorAll('.section-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!body) return;
+      const open = body.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) window.dispatchEvent(new Event('resize'));
+    });
+  });
 </script>
 
 </body>

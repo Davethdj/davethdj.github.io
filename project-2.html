@@ -101,6 +101,29 @@
   .content-section ul{ max-width: var(--maxw-text); padding-left: 20px; margin: 0 0 16px; }
   .content-section li{ margin-bottom: 8px; }
 
+  /* mobile-only: collapsible sections */
+  .section-toggle{
+    display: block; width: 100%; text-align: left;
+    background: none; border: none; padding: 0; margin: 0;
+    font: inherit; color: inherit; cursor: default;
+  }
+  button.section-toggle:focus-visible{ outline: 2px solid var(--copper); outline-offset: 3px; }
+  .section-toggle .chevron{ display: none; }
+  @media (max-width: 700px){
+    .content-section h2{ margin: 0; }
+    .section-toggle{
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      cursor: pointer;
+    }
+    .section-toggle .chevron{
+      display: inline-block; font-size: 13px; color: var(--copper); flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .section-toggle[aria-expanded="true"] .chevron{ transform: rotate(180deg); }
+    .section-body{ display: none; margin-top: 18px; }
+    .section-body.open{ display: block; }
+  }
+
   /* two-up image gallery within a section */
   .gallery-2up{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
   @media (max-width: 700px){ .gallery-2up{ grid-template-columns: 1fr; } }
@@ -164,17 +187,22 @@
   </figure>
 
   <section class="content-section" style="border-top: none; padding-top: 0;">
-    <h2>Overview</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-1-body">Overview<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-1-body">
     <p>This board is a design and layout exercise focused on modeling common high-speed signal degradation mechanisms and evaluating, at the schematic and layout level, how a redriver IC would correct them. Each of the four channels intentionally implements a distinct layout defect — a via crossing, a length mismatch, or added trace loss — so that the same hardware-tuned Texas Instruments redriver and STM32-based equalization control can be evaluated against a range of realistic PCIe Gen 4 signal integrity problems.</p>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>The problem</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-2-body">The problem<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-2-body">
     <p>At 16 GT/s, differential pairs are unforgiving of layout mistakes — a via crossing, a few millimeters of length mismatch, or extra trace length can each independently degrade signal integrity enough to cause link failure. The design challenge was to build a single test PCB that could isolate and reproduce three of these failure modes on separate channels, route each degraded signal into a shared redriver, and keep the redriver's own power delivery clean enough (a stable, low-noise 3.3V rail via a linear regulator with decoupling capacitor networks) that it wasn't introducing additional noise into the measurement.</p>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Design process</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-3-body">Design process<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-3-body">
     <p>The architecture centers on a hardware-tuned Texas Instruments redriver paired with an STM32 microcontroller handling per-channel equalization control. Rather than modeling every possible layout defect on one channel, I split the board into four independent channels — via-induced impedance discontinuity, unmatched length skew, channel loss, and a clean reference — so each failure mode could be isolated and evaluated without interference from the others. The hardest part of the layout was the via-crossing channel: routing each trace of a differential pair around an obstructing via physically splits the coupled lines, and getting that split to reliably produce a defined impedance discontinuity (rather than an uncontrolled one) took several iterations of via placement and return-path planning.</p>
     <div class="gallery-2up">
       <figure>
@@ -190,30 +218,37 @@
         <figcaption>Via-induced impedance discontinuity channel, routed and split around the via.</figcaption>
       </figure>
     </div>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Challenges & what I'd change</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-4-body">Challenges & what I'd change<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-4-body">
     <ul>
       <li>Isolating the length-skew and channel-loss defects to a specific, repeatable value (rather than an arbitrary one) meant working backward from the redriver's published equalization range to pick trace geometries that would actually stress-test its correction limits, instead of just "adding some extra length."</li>
       <li>I intentionally stopped this project at schematic capture and layout rather than fabricating the board. In hindsight, I'd scope a smaller two-channel version first — enough to prove the via-crossing and skew defects independently — so a first fab run would be cheaper and faster to iterate on than committing to all four channels at once.</li>
     </ul>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Status & next steps</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-5-body">Status & next steps<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-5-body">
     <p>This project was carried through schematic capture and full 4-channel PCB layout, completed between July and August 2026, and intentionally stopped there — the board was not fabricated or bench-tested. The goal was to demonstrate high-speed layout judgment (differential pair routing, impedance-aware constraint management, and deliberate defect modeling) at the design stage, rather than to validate a physical prototype in this phase.</p>
     <p>If fabricated, this board would allow bench validation of each modeled defect and the redriver's correction performance — using oscilloscope eye-diagram capture, TDR-based impedance verification, and measured insertion/return loss against the design targets.</p>
+  </div>
   </section>
 
   <section class="content-section">
-    <h2>Downloads</h2>
+    <h2><button class="section-toggle" type="button" aria-expanded="false" aria-controls="sec-6-body">Downloads<span class="chevron" aria-hidden="true">▾</span></button></h2>
+    <div class="section-body" id="sec-6-body">
     <ul class="download-list">
       <li>
         <span class="download-name">Schematic (PDF)</span>
         <a href="#" class="mono download-meta">DOWNLOAD ↓</a>
       </li>
     </ul>
+  </div>
   </section>
 
   <nav class="project-nav">
@@ -234,6 +269,16 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  document.querySelectorAll('.section-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const body = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!body) return;
+      const open = body.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) window.dispatchEvent(new Event('resize'));
+    });
+  });
 </script>
 
 </body>
