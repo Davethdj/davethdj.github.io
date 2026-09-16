@@ -169,11 +169,23 @@
   /* mobile-only: mini project photos + a big "View Projects" button, first thing on the page */
   .hero-preview{ display: none; }
   .hero-thumbs{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex: 1 1 auto; }
-  .hero-thumbs img{
+  .hero-thumb{ position: relative; display: block; border-bottom: none; -webkit-tap-highlight-color: transparent; }
+  .hero-thumb img{
     width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block;
     border-radius: 12px; border: 1px solid var(--line-strong);
     box-shadow: 0 4px 12px rgba(216,67,42,0.1);
   }
+  .hero-thumb-label{
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 6px; border-radius: 12px;
+    background: rgba(216,67,42,0.62);
+    color: #fff; font-family: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+    font-weight: 600; font-size: 11px; line-height: 1.2;
+    opacity: 0; transition: opacity 0.15s ease;
+  }
+  .hero-thumb:active .hero-thumb-label,
+  .hero-thumb:focus-visible .hero-thumb-label{ opacity: 1; }
   .hero-view-btn{
     flex: 0 0 132px;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
@@ -398,10 +410,26 @@
 
     <div class="hero-preview">
       <div class="hero-thumbs">
-        <img src="images/high-speed-transmission-line.jpg" alt="High Speed Transmission Line Test Board">
-        <img src="images/differential-pair.jpg" alt="Differential Pair Test Board">
-        <img src="images/fpga-ddr3-routing.jpg" alt="FPGA-DDR3 Board Routing">
-        <img src="images/audio-amplifier-layout.jpg" alt="Audio Amplifier Layout">
+        <a class="hero-thumb" href="project-1.html">
+          <span class="fiducial tl"></span><span class="fiducial br"></span>
+          <img src="images/high-speed-transmission-line.jpg" alt="High Speed Transmission Line Test Board">
+          <span class="hero-thumb-label">High Speed Transmission Line Test Board</span>
+        </a>
+        <a class="hero-thumb" href="project-2.html">
+          <span class="fiducial tl"></span><span class="fiducial br"></span>
+          <img src="images/differential-pair.jpg" alt="Differential Pair Test Board">
+          <span class="hero-thumb-label">Differential Pair Test Board</span>
+        </a>
+        <a class="hero-thumb" href="project-3.html">
+          <span class="fiducial tl"></span><span class="fiducial br"></span>
+          <img src="images/fpga-ddr3-routing.jpg" alt="FPGA-DDR3 Board Routing">
+          <span class="hero-thumb-label">FPGA-DDR3 Board Routing</span>
+        </a>
+        <a class="hero-thumb" href="project-4.html">
+          <span class="fiducial tl"></span><span class="fiducial br"></span>
+          <img src="images/audio-amplifier-layout.jpg" alt="Audio Amplifier Layout">
+          <span class="hero-thumb-label">Audio Amplifier Layout</span>
+        </a>
       </div>
       <a class="hero-view-btn" href="#work">
         <span>View Projects</span>
@@ -591,6 +619,8 @@
 </footer>
 
 <script>
+  document.addEventListener('touchstart', function(){}, true);
+
   document.getElementById('year').textContent = new Date().getFullYear();
 
   function flashSection(id){
