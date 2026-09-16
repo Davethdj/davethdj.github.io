@@ -165,23 +165,37 @@
   /* mobile-only: mini project photos + a big "View Projects" button, first thing on the page */
   .hero-preview{ display: none; }
   .hero-thumbs{ display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex: 1 1 auto; }
-  .hero-thumb{ position: relative; display: block; border-bottom: none; -webkit-tap-highlight-color: transparent; }
-  .hero-thumb img{
+  .hero-thumb{ position: relative; }
+  .hero-thumb-link{ display: block; border-bottom: none; -webkit-tap-highlight-color: transparent; }
+  .hero-thumb-link img{
     width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block;
     border-radius: 12px; border: 1px solid var(--line-strong);
     box-shadow: 0 4px 12px rgba(216,67,42,0.1);
   }
+  .hero-thumb-btn{
+    display: flex; align-items: center; justify-content: center;
+    position: absolute; top: 6px; left: 6px; z-index: 5;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--ink); color: var(--bg); border: none; cursor: pointer; padding: 0;
+    font-size: 14px; line-height: 1;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .hero-thumb-btn:active{ transform: scale(0.9); }
+  .hero-thumb-btn[aria-expanded="true"]{ background: var(--copper); }
+  .hero-thumb-btn .icon-plus{ display: inline-block; transition: transform 0.2s ease; }
+  .hero-thumb-btn[aria-expanded="true"] .icon-plus{ transform: rotate(45deg); }
   .hero-thumb-label{
-    position: absolute; inset: 0;
+    position: absolute; inset: 0; z-index: 4;
     display: flex; align-items: center; justify-content: center; text-align: center;
     padding: 6px; border-radius: 12px;
     background: rgba(216,67,42,0.62);
     color: #fff; font-family: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
     font-weight: 600; font-size: 11px; line-height: 1.2;
-    opacity: 0; transition: opacity 0.15s ease;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s ease;
   }
-  .hero-thumb:active .hero-thumb-label,
-  .hero-thumb:focus-visible .hero-thumb-label{ opacity: 1; }
+  .hero-thumb-label.open{ opacity: 1; }
   .hero-view-btn{
     flex: 0 0 132px;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
@@ -418,26 +432,42 @@
 
     <div class="hero-preview">
       <div class="hero-thumbs">
-        <a class="hero-thumb" href="project-1.html">
-          <span class="fiducial tl"></span><span class="fiducial br"></span>
-          <img src="images/high-speed-transmission-line.jpg" alt="High Speed Transmission Line Test Board">
-          <span class="hero-thumb-label">High Speed Transmission Line Test Board</span>
-        </a>
-        <a class="hero-thumb" href="project-2.html">
-          <span class="fiducial tl"></span><span class="fiducial br"></span>
-          <img src="images/differential-pair.jpg" alt="Differential Pair Test Board">
-          <span class="hero-thumb-label">Differential Pair Test Board</span>
-        </a>
-        <a class="hero-thumb" href="project-3.html">
-          <span class="fiducial tl"></span><span class="fiducial br"></span>
-          <img src="images/fpga-ddr3-routing.jpg" alt="FPGA-DDR3 Board Routing">
-          <span class="hero-thumb-label">FPGA-DDR3 Board Routing</span>
-        </a>
-        <a class="hero-thumb" href="project-4.html">
-          <span class="fiducial tl"></span><span class="fiducial br"></span>
-          <img src="images/audio-amplifier-layout.jpg" alt="Audio Amplifier Layout">
-          <span class="hero-thumb-label">Audio Amplifier Layout</span>
-        </a>
+        <div class="hero-thumb">
+          <a class="hero-thumb-link" href="project-1.html">
+            <img src="images/high-speed-transmission-line.jpg" alt="High Speed Transmission Line Test Board">
+          </a>
+          <button class="hero-thumb-btn" type="button" aria-expanded="false" aria-controls="hero-thumb-1-label" aria-label="Show project name">
+            <span class="icon-plus" aria-hidden="true">+</span>
+          </button>
+          <div class="hero-thumb-label" id="hero-thumb-1-label">High Speed Transmission Line Test Board</div>
+        </div>
+        <div class="hero-thumb">
+          <a class="hero-thumb-link" href="project-2.html">
+            <img src="images/differential-pair.jpg" alt="Differential Pair Test Board">
+          </a>
+          <button class="hero-thumb-btn" type="button" aria-expanded="false" aria-controls="hero-thumb-2-label" aria-label="Show project name">
+            <span class="icon-plus" aria-hidden="true">+</span>
+          </button>
+          <div class="hero-thumb-label" id="hero-thumb-2-label">Differential Pair Test Board</div>
+        </div>
+        <div class="hero-thumb">
+          <a class="hero-thumb-link" href="project-3.html">
+            <img src="images/fpga-ddr3-routing.jpg" alt="FPGA-DDR3 Board Routing">
+          </a>
+          <button class="hero-thumb-btn" type="button" aria-expanded="false" aria-controls="hero-thumb-3-label" aria-label="Show project name">
+            <span class="icon-plus" aria-hidden="true">+</span>
+          </button>
+          <div class="hero-thumb-label" id="hero-thumb-3-label">FPGA-DDR3 Board Routing</div>
+        </div>
+        <div class="hero-thumb">
+          <a class="hero-thumb-link" href="project-4.html">
+            <img src="images/audio-amplifier-layout.jpg" alt="Audio Amplifier Layout">
+          </a>
+          <button class="hero-thumb-btn" type="button" aria-expanded="false" aria-controls="hero-thumb-4-label" aria-label="Show project name">
+            <span class="icon-plus" aria-hidden="true">+</span>
+          </button>
+          <div class="hero-thumb-label" id="hero-thumb-4-label">Audio Amplifier Layout</div>
+        </div>
       </div>
       <a class="hero-view-btn" href="#work">
         <span>View Projects</span>
@@ -669,6 +699,20 @@
     if (e.target.closest('.nav-dropdown')) return;
     document.querySelectorAll('.nav-dropdown-menu.open').forEach(m => m.classList.remove('open'));
     document.querySelectorAll('.nav-tab[aria-expanded="true"]').forEach(t => t.setAttribute('aria-expanded', 'false'));
+  });
+
+  document.querySelectorAll('.hero-thumb-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const label = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!label) return;
+      const willOpen = !label.classList.contains('open');
+      document.querySelectorAll('.hero-thumb-label.open').forEach(l => l.classList.remove('open'));
+      document.querySelectorAll('.hero-thumb-btn[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+      if (willOpen){
+        label.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
   });
 </script>
 
